@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9AAC431F2E04BDC900883901 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC431E2E04BDC900883901 /* ContentView.swift */; };
+		9AAEFF412E03C0460062DDC2 /* WLED_FanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF402E03C0460062DDC2 /* WLED_FanApp.swift */; };
+		9AAEFF452E03C0480062DDC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AAEFF442E03C0480062DDC2 /* Assets.xcassets */; };
+		9AAEFF482E03C0490062DDC2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AAEFF472E03C0490062DDC2 /* Preview Assets.xcassets */; };
+		9AAEFF522E03C0490062DDC2 /* WLED_FanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF512E03C0490062DDC2 /* WLED_FanTests.swift */; };
+		9AAEFF5C2E03C0490062DDC2 /* WLED_FanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF5B2E03C0490062DDC2 /* WLED_FanUITests.swift */; };
+		9AAEFF5E2E03C0490062DDC2 /* WLED_FanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF5D2E03C0490062DDC2 /* WLED_FanUITestsLaunchTests.swift */; };
+		9AAEFF6F2E03C1160062DDC2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF6B2E03C1160062DDC2 /* SettingsView.swift */; };
+		9AAEFF702E03C1160062DDC2 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF6C2E03C1160062DDC2 /* WebView.swift */; };
+		9AAEFF712E03C1160062DDC2 /* WLEDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF6D2E03C1160062DDC2 /* WLEDManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9AAEFF4E2E03C0490062DDC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AAEFF352E03C0460062DDC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9AAEFF3C2E03C0460062DDC2;
+			remoteInfo = "WLED Fan";
+		};
+		9AAEFF582E03C0490062DDC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AAEFF352E03C0460062DDC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9AAEFF3C2E03C0460062DDC2;
+			remoteInfo = "WLED Fan";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9A4E1FCE2E0497580095A8FA /* WLED-Fan-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WLED-Fan-Info.plist"; sourceTree = SOURCE_ROOT; };
+		9AAC431E2E04BDC900883901 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9AAEFF3D2E03C0460062DDC2 /* WLED Fan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WLED Fan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AAEFF402E03C0460062DDC2 /* WLED_FanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLED_FanApp.swift; sourceTree = "<group>"; };
+		9AAEFF442E03C0480062DDC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9AAEFF472E03C0490062DDC2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9AAEFF4D2E03C0490062DDC2 /* WLED FanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WLED FanTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AAEFF512E03C0490062DDC2 /* WLED_FanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLED_FanTests.swift; sourceTree = "<group>"; };
+		9AAEFF572E03C0490062DDC2 /* WLED FanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WLED FanUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AAEFF5B2E03C0490062DDC2 /* WLED_FanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLED_FanUITests.swift; sourceTree = "<group>"; };
+		9AAEFF5D2E03C0490062DDC2 /* WLED_FanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLED_FanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9AAEFF6B2E03C1160062DDC2 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9AAEFF6C2E03C1160062DDC2 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		9AAEFF6D2E03C1160062DDC2 /* WLEDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLEDManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9AAEFF3A2E03C0460062DDC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAEFF4A2E03C0490062DDC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAEFF542E03C0490062DDC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9AAEFF342E03C0460062DDC2 = {
+			isa = PBXGroup;
+			children = (
+				9AAEFF3F2E03C0460062DDC2 /* WLED Fan */,
+				9AAEFF502E03C0490062DDC2 /* WLED FanTests */,
+				9AAEFF5A2E03C0490062DDC2 /* WLED FanUITests */,
+				9AAEFF3E2E03C0460062DDC2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9AAEFF3E2E03C0460062DDC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9AAEFF3D2E03C0460062DDC2 /* WLED Fan.app */,
+				9AAEFF4D2E03C0490062DDC2 /* WLED FanTests.xctest */,
+				9AAEFF572E03C0490062DDC2 /* WLED FanUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9AAEFF3F2E03C0460062DDC2 /* WLED Fan */ = {
+			isa = PBXGroup;
+			children = (
+				9A4E1FCE2E0497580095A8FA /* WLED-Fan-Info.plist */,
+				9AAEFF402E03C0460062DDC2 /* WLED_FanApp.swift */,
+				9AAC431E2E04BDC900883901 /* ContentView.swift */,
+				9AAEFF6B2E03C1160062DDC2 /* SettingsView.swift */,
+				9AAEFF6C2E03C1160062DDC2 /* WebView.swift */,
+				9AAEFF6D2E03C1160062DDC2 /* WLEDManager.swift */,
+				9AAEFF442E03C0480062DDC2 /* Assets.xcassets */,
+				9AAEFF462E03C0490062DDC2 /* Preview Content */,
+			);
+			path = "WLED Fan";
+			sourceTree = "<group>";
+		};
+		9AAEFF462E03C0490062DDC2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9AAEFF472E03C0490062DDC2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9AAEFF502E03C0490062DDC2 /* WLED FanTests */ = {
+			isa = PBXGroup;
+			children = (
+				9AAEFF512E03C0490062DDC2 /* WLED_FanTests.swift */,
+			);
+			path = "WLED FanTests";
+			sourceTree = "<group>";
+		};
+		9AAEFF5A2E03C0490062DDC2 /* WLED FanUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9AAEFF5B2E03C0490062DDC2 /* WLED_FanUITests.swift */,
+				9AAEFF5D2E03C0490062DDC2 /* WLED_FanUITestsLaunchTests.swift */,
+			);
+			path = "WLED FanUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9AAEFF3C2E03C0460062DDC2 /* WLED Fan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AAEFF612E03C0490062DDC2 /* Build configuration list for PBXNativeTarget "WLED Fan" */;
+			buildPhases = (
+				9AAEFF392E03C0460062DDC2 /* Sources */,
+				9AAEFF3A2E03C0460062DDC2 /* Frameworks */,
+				9AAEFF3B2E03C0460062DDC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WLED Fan";
+			productName = "WLED Fan";
+			productReference = 9AAEFF3D2E03C0460062DDC2 /* WLED Fan.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9AAEFF4C2E03C0490062DDC2 /* WLED FanTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AAEFF642E03C0490062DDC2 /* Build configuration list for PBXNativeTarget "WLED FanTests" */;
+			buildPhases = (
+				9AAEFF492E03C0490062DDC2 /* Sources */,
+				9AAEFF4A2E03C0490062DDC2 /* Frameworks */,
+				9AAEFF4B2E03C0490062DDC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AAEFF4F2E03C0490062DDC2 /* PBXTargetDependency */,
+			);
+			name = "WLED FanTests";
+			productName = "WLED FanTests";
+			productReference = 9AAEFF4D2E03C0490062DDC2 /* WLED FanTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9AAEFF562E03C0490062DDC2 /* WLED FanUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AAEFF672E03C0490062DDC2 /* Build configuration list for PBXNativeTarget "WLED FanUITests" */;
+			buildPhases = (
+				9AAEFF532E03C0490062DDC2 /* Sources */,
+				9AAEFF542E03C0490062DDC2 /* Frameworks */,
+				9AAEFF552E03C0490062DDC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AAEFF592E03C0490062DDC2 /* PBXTargetDependency */,
+			);
+			name = "WLED FanUITests";
+			productName = "WLED FanUITests";
+			productReference = 9AAEFF572E03C0490062DDC2 /* WLED FanUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9AAEFF352E03C0460062DDC2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					9AAEFF3C2E03C0460062DDC2 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					9AAEFF4C2E03C0490062DDC2 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 9AAEFF3C2E03C0460062DDC2;
+					};
+					9AAEFF562E03C0490062DDC2 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 9AAEFF3C2E03C0460062DDC2;
+					};
+				};
+			};
+			buildConfigurationList = 9AAEFF382E03C0460062DDC2 /* Build configuration list for PBXProject "WLED Fan" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9AAEFF342E03C0460062DDC2;
+			productRefGroup = 9AAEFF3E2E03C0460062DDC2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9AAEFF3C2E03C0460062DDC2 /* WLED Fan */,
+				9AAEFF4C2E03C0490062DDC2 /* WLED FanTests */,
+				9AAEFF562E03C0490062DDC2 /* WLED FanUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9AAEFF3B2E03C0460062DDC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAEFF482E03C0490062DDC2 /* Preview Assets.xcassets in Resources */,
+				9AAEFF452E03C0480062DDC2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAEFF4B2E03C0490062DDC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAEFF552E03C0490062DDC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9AAEFF392E03C0460062DDC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAEFF702E03C1160062DDC2 /* WebView.swift in Sources */,
+				9AAC431F2E04BDC900883901 /* ContentView.swift in Sources */,
+				9AAEFF6F2E03C1160062DDC2 /* SettingsView.swift in Sources */,
+				9AAEFF412E03C0460062DDC2 /* WLED_FanApp.swift in Sources */,
+				9AAEFF712E03C1160062DDC2 /* WLEDManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAEFF492E03C0490062DDC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAEFF522E03C0490062DDC2 /* WLED_FanTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AAEFF532E03C0490062DDC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAEFF5E2E03C0490062DDC2 /* WLED_FanUITestsLaunchTests.swift in Sources */,
+				9AAEFF5C2E03C0490062DDC2 /* WLED_FanUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9AAEFF4F2E03C0490062DDC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9AAEFF3C2E03C0460062DDC2 /* WLED Fan */;
+			targetProxy = 9AAEFF4E2E03C0490062DDC2 /* PBXContainerItemProxy */;
+		};
+		9AAEFF592E03C0490062DDC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9AAEFF3C2E03C0460062DDC2 /* WLED Fan */;
+			targetProxy = 9AAEFF582E03C0490062DDC2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9AAEFF5F2E03C0490062DDC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9AAEFF602E03C0490062DDC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9AAEFF622E03C0490062DDC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WLED Fan/Preview Content\"";
+				DEVELOPMENT_TEAM = 33FD97ML67;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WLED-Fan-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-Fan";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9AAEFF632E03C0490062DDC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WLED Fan/Preview Content\"";
+				DEVELOPMENT_TEAM = 33FD97ML67;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WLED-Fan-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-Fan";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9AAEFF652E03C0490062DDC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33FD97ML67;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-FanTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WLED Fan.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WLED Fan";
+			};
+			name = Debug;
+		};
+		9AAEFF662E03C0490062DDC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33FD97ML67;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-FanTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WLED Fan.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WLED Fan";
+			};
+			name = Release;
+		};
+		9AAEFF682E03C0490062DDC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33FD97ML67;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-FanUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WLED Fan";
+			};
+			name = Debug;
+		};
+		9AAEFF692E03C0490062DDC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 33FD97ML67;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-FanUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WLED Fan";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9AAEFF382E03C0460062DDC2 /* Build configuration list for PBXProject "WLED Fan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAEFF5F2E03C0490062DDC2 /* Debug */,
+				9AAEFF602E03C0490062DDC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AAEFF612E03C0490062DDC2 /* Build configuration list for PBXNativeTarget "WLED Fan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAEFF622E03C0490062DDC2 /* Debug */,
+				9AAEFF632E03C0490062DDC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AAEFF642E03C0490062DDC2 /* Build configuration list for PBXNativeTarget "WLED FanTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAEFF652E03C0490062DDC2 /* Debug */,
+				9AAEFF662E03C0490062DDC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AAEFF672E03C0490062DDC2 /* Build configuration list for PBXNativeTarget "WLED FanUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AAEFF682E03C0490062DDC2 /* Debug */,
+				9AAEFF692E03C0490062DDC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9AAEFF352E03C0460062DDC2 /* Project object */;
+}
