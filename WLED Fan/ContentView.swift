@@ -26,7 +26,7 @@ struct ContentView: View {
 
             VStack(spacing: 12) {
                 HStack {
-                    Text("PWM Fan: \(Int(fanSpeed))")
+                    Text("Fan Speed: \(Int(fanSpeed))")
                     Spacer()
                     Button("Devices") {
                         showingSettings = true

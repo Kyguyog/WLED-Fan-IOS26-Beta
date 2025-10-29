@@ -107,7 +107,7 @@ struct SettingsView: View {
                 Section {
                     HStack {
                         Spacer()
-                        Link("Github", destination: URL(string: "https://github.com/Kyguyog/RGB-Desk-Fan?tab=readme-ov-file")!)
+                        Link("Github (Not Public, Yet)", destination: URL(string: "https://github.com/Kyguyog/RGB-Desk-Fan?tab=readme-ov-file")!)
                             .foregroundColor(.blue)
                         Spacer()
                     }

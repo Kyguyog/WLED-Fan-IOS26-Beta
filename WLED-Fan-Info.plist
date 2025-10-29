@@ -2,16 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_wled._tcp.</string>
+	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict/>
 	</array>
-	<key>NSBonjourServices</key>
-<array>
-    <string>_wled._tcp.</string>
-</array>
-<key>NSLocalNetworkUsageDescription</key>
-<string>We need to scan your local network to find WLED devices.</string>
-
 </dict>
 </plist>
