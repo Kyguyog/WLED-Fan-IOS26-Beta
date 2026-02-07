@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct LegacyContentView: View {
     @StateObject private var manager = WLEDManager()
     @State private var fanSpeed: Double = 100
     @State private var showingSettings = false
@@ -82,3 +82,4 @@ struct ContentView: View {
         }
     }
 }
+

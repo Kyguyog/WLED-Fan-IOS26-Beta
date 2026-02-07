@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A9245042F36E31A00B6AED2 /* ContentView 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9245032F36E31A00B6AED2 /* ContentView 2.swift */; };
 		9AAC431F2E04BDC900883901 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC431E2E04BDC900883901 /* ContentView.swift */; };
 		9AAEFF412E03C0460062DDC2 /* WLED_FanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAEFF402E03C0460062DDC2 /* WLED_FanApp.swift */; };
 		9AAEFF452E03C0480062DDC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AAEFF442E03C0480062DDC2 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		9A4E1FCE2E0497580095A8FA /* WLED-Fan-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WLED-Fan-Info.plist"; sourceTree = SOURCE_ROOT; };
+		9A9245032F36E31A00B6AED2 /* ContentView 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView 2.swift"; sourceTree = "<group>"; };
 		9AAC431E2E04BDC900883901 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9AAEFF3D2E03C0460062DDC2 /* WLED Fan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WLED Fan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AAEFF402E03C0460062DDC2 /* WLED_FanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLED_FanApp.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				9AAEFF6D2E03C1160062DDC2 /* WLEDManager.swift */,
 				9AAEFF442E03C0480062DDC2 /* Assets.xcassets */,
 				9AAEFF462E03C0490062DDC2 /* Preview Content */,
+				9A9245032F36E31A00B6AED2 /* ContentView 2.swift */,
 			);
 			path = "WLED Fan";
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A9245042F36E31A00B6AED2 /* ContentView 2.swift in Sources */,
 				9AAEFF702E03C1160062DDC2 /* WebView.swift in Sources */,
 				9AAC431F2E04BDC900883901 /* ContentView.swift in Sources */,
 				9AAEFF6F2E03C1160062DDC2 /* SettingsView.swift in Sources */,
@@ -447,7 +451,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-Fan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -480,7 +484,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyguy.WLED-Fan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

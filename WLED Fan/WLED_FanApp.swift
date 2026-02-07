@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct WLED_FanApp: App {
     var body: some Scene {
-        WindowGroup {
+        WindowGroup("WLED Fan & Light") {
             ContentView()
         }
     }
