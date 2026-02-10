@@ -29,6 +29,8 @@ struct ContentView: View {
     @State private var showingSettings = false
     
     @State private var lightDebounceWorkItem: DispatchWorkItem?
+    @State private var isLightUpdating = false
+    @State private var lastLightUserAction: Date = .distantPast
 
     var body: some View {
         NavigationStack {
@@ -62,8 +64,16 @@ struct ContentView: View {
                                 Toggle("", isOn: $isLightOn)
                                     .labelsHidden()
                                     .onChange(of: isLightOn) { _, _ in
-                                        // On toggle, send an immediate persistent update
+                                        lastLightUserAction = Date()
+                                        isLightUpdating = true
+                                        // If turning on while brightness is 0, bump to a minimal visible level (e.g., 5%)
+                                        if isLightOn && brightness <= 0 {
+                                            brightness = 5
+                                        }
                                         sendLightState()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                            isLightUpdating = false
+                                        }
                                     }
                             }
 
@@ -73,6 +83,8 @@ struct ContentView: View {
                                     if !editing { sendLightState() }
                                 }
                                 .onChange(of: brightness) { _, _ in
+                                    lastLightUserAction = Date()
+                                    isLightUpdating = true
                                     scheduleDebouncedLightSend()
                                 }
                                 Text("\(Int(brightness))%")
@@ -138,7 +150,7 @@ struct ContentView: View {
                 }
             }
             //.navigationTitle("WLED Fan & Light")
-            //.navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack(spacing: 8) {
@@ -172,6 +184,8 @@ struct ContentView: View {
             }
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackgroundVisibility(.visible, for: .navigationBar)
+            .toolbar(.visible, for: .navigationBar)
             .sheet(isPresented: $showingSettings) {
                 SettingsView(manager: manager)
             }
@@ -226,15 +240,12 @@ struct ContentView: View {
         guard let device = manager.selectedDevice else { return }
         guard let url = URL(string: "http://\(device.ip)/json/state") else { return }
 
-        let bri = max(0, min(255, Int((brightness / 100.0) * 255)))
-
+        let scaledBri = max(0, min(255, Int((brightness / 100.0) * 255)))
+        let effectiveBri = isLightOn ? max(scaledBri, 5) : 0
         var body: [String: Any] = [
             "on": isLightOn,
-            "bri": bri
+            "bri": effectiveBri
         ]
-
-        // If turned off, optionally set brightness to 0 to ensure off
-        if !isLightOn { body["bri"] = 0 }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -249,18 +260,22 @@ struct ContentView: View {
 
     private func scheduleDebouncedLightSend() {
         lightDebounceWorkItem?.cancel()
-        let work = DispatchWorkItem { [isLightOn, brightness] in
+        let work = DispatchWorkItem {
             sendLightState()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                isLightUpdating = false
+            }
         }
         lightDebounceWorkItem = work
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: work)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: work)
     }
 
     // MARK: - Brightness Polling
     private func startBrightnessPolling() {
         pollTimer?.invalidate()
         pollTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            guard !isEditingBrightness else { return }
+            let recentUserAction = Date().timeIntervalSince(lastLightUserAction) < 1.0
+            guard !isEditingBrightness && !isLightUpdating && !recentUserAction else { return }
             fetchBrightness()
         }
     }
@@ -274,12 +289,20 @@ struct ContentView: View {
         guard let device = manager.selectedDevice, let url = URL(string: "http://\(device.ip)/json/state") else { return }
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data,
-                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let bri = json["bri"] as? Int else { return }
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+            let onFromJSON = (json["on"] as? Bool)
+            let bri = json["bri"] as? Int ?? 0
             let sliderValue = max(0, min(100, Int((Double(bri) / 255.0) * 100.0)))
             DispatchQueue.main.async {
+                guard !self.isLightUpdating else { return }
+                let recentUserAction = Date().timeIntervalSince(self.lastLightUserAction) < 1.0
+                guard !recentUserAction else { return }
                 self.brightness = Double(sliderValue)
-                self.isLightOn = (bri > 0) // keep toggle roughly in sync
+                if let on = onFromJSON {
+                    self.isLightOn = on
+                } else {
+                    self.isLightOn = (bri > 0)
+                }
             }
         }.resume()
     }
