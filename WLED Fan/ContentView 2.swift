@@ -1,5 +1,4 @@
 import SwiftUI
-import Network
 import WebKit
 
 enum Mode: String, CaseIterable, Identifiable {
@@ -14,44 +13,26 @@ struct ContentView: View {
     @State private var mode: Mode = .simple
 
     // Fan state
-    @State private var isFanOn: Bool = false
     @State private var fanSpeed: Double = 50
 
     // Light state
     @State private var isLightOn: Bool = false
     @State private var brightness: Double = 50
-    @State private var lightColor: Color = .yellow
+    @State private var isEditingBrightness: Bool = false
+    @State private var pollTimer: Timer? = nil
+
+    // Presets
+    @State private var presets: [WLEDPre] = []
+    @State private var activePresetID: Int? = nil
 
     // UI
     @State private var showingSettings = false
-
-    // UDP connection (WLED Realtime UDP port 21324)
-    private let wledUDPPort: NWEndpoint.Port = 21324
-    @State private var connection: NWConnection?
+    
+    @State private var lightDebounceWorkItem: DispatchWorkItem?
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                // Device banner / button
-                HStack(spacing: 8) {
-                    if let device = manager.selectedDevice {
-                        Image(systemName: "dot.radiowaves.left.and.right")
-                            .foregroundStyle(.green)
-                        Text(device.name)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                        Text("(\(device.ip))")
-                            .foregroundStyle(.secondary)
-                        Spacer()
-                    } else {
-                        Text("No device selected")
-                            .foregroundStyle(.secondary)
-                        Spacer()
-                    }
-                    Button("Devices") { showingSettings = true }
-                }
-                .padding(.horizontal)
-
                 if mode == .simple {
                     // Simple mode controls (fan & light)
                     VStack(spacing: 20) {
@@ -61,23 +42,14 @@ struct ContentView: View {
                                 Image(systemName: "fanblades.fill").foregroundStyle(.blue)
                                 Text("Fan").font(.headline)
                                 Spacer()
-                                Toggle("", isOn: $isFanOn)
-                                    .labelsHidden()
-                                    .onChange(of: isFanOn) { _, on in
-                                        // If toggled off, set speed to 0; if on and speed is 0, set to a default
-                                        if !on { fanSpeed = 0; sendFanPWM() }
-                                        else if fanSpeed == 0 { fanSpeed = 50; sendFanPWM() }
-                                    }
                             }
 
                             HStack {
                                 Slider(value: $fanSpeed, in: 0...100, step: 1) { Text("Fan Speed") } onEditingChanged: { editing in
                                     if !editing { sendFanPWM() }
                                 }
-                                .disabled(!isFanOn)
                                 Text("\(Int(fanSpeed))%")
                                     .frame(width: 44, alignment: .trailing)
-                                    .foregroundStyle(isFanOn ? .primary : .secondary)
                             }
                         }
 
@@ -90,41 +62,73 @@ struct ContentView: View {
                                 Toggle("", isOn: $isLightOn)
                                     .labelsHidden()
                                     .onChange(of: isLightOn) { _, _ in
-                                        // On toggle, send an immediate realtime update
-                                        sendLightRealtime()
+                                        // On toggle, send an immediate persistent update
+                                        sendLightState()
                                     }
                             }
 
                             HStack {
-                                Slider(value: $brightness, in: 0...100, step: 1) { Text("Brightness") }
-                                    .disabled(!isLightOn)
-                                    .onChange(of: brightness) { _, _ in
-                                        // Send realtime on change (lightweight)
-                                        sendLightRealtime()
-                                    }
+                                Slider(value: $brightness, in: 0...100, step: 1) { Text("Brightness") } onEditingChanged: { editing in
+                                    isEditingBrightness = editing
+                                    if !editing { sendLightState() }
+                                }
+                                .onChange(of: brightness) { _, _ in
+                                    scheduleDebouncedLightSend()
+                                }
                                 Text("\(Int(brightness))%")
                                     .frame(width: 44, alignment: .trailing)
-                                    .foregroundStyle(isLightOn ? .primary : .secondary)
+                                    .foregroundStyle(.primary)
+                            }
+                        }
+
+                        sectionContainer {
+                            HStack {
+                                Image(systemName: "star.fill").foregroundStyle(.orange)
+                                Text("Presets").font(.headline)
+                                Spacer()
+                                Button(action: { fetchPresets() }) {
+                                    Image(systemName: "arrow.clockwise")
+                                }
+                                .accessibilityLabel("Refresh Presets")
                             }
 
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("Color")
-                                ColorPicker("Color", selection: $lightColor, supportsOpacity: false)
-                                    .labelsHidden()
-                                    .disabled(!isLightOn)
-                                    .onChange(of: lightColor) { _, _ in
-                                        sendLightRealtime()
+                            if presets.isEmpty {
+                                Text("No presets available").foregroundStyle(.secondary)
+                            } else {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 8) {
+                                        ForEach(presets, id: \._id) { p in
+                                            Button(action: { applyPreset(p._id) }) {
+                                                Text(p.name)
+                                                    .padding(.horizontal, 12)
+                                                    .padding(.vertical, 8)
+                                                    .background(
+                                                        RoundedRectangle(cornerRadius: 12)
+                                                            .fill((activePresetID == p._id) ? Color.accentColor.opacity(0.35) : Color.accentColor.opacity(0.15))
+                                                    )
+                                                    .overlay(
+                                                        RoundedRectangle(cornerRadius: 12)
+                                                            .stroke((activePresetID == p._id) ? Color.accentColor : Color.clear, lineWidth: 2)
+                                                    )
+                                                    .foregroundStyle((activePresetID == p._id) ? Color.accentColor : Color.primary)
+                                            }
+                                        }
                                     }
+                                }
                             }
                         }
                         Spacer()
                     }
                     .padding()
+                    .onAppear {
+                        fetchPresets()
+                        fetchActivePreset()
+                    }
                 } else {
                     // Web mode: show WebView or placeholder
                     if let device = manager.selectedDevice, let url = URL(string: "http://\(device.ip)") {
                         WebView(url: url)
-                            .edgesIgnoringSafeArea(.bottom)
+                            .ignoresSafeArea()
                     } else {
                         Spacer()
                         Text("No WLED device selected")
@@ -133,27 +137,51 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("WLED Fan & Light")
-            .navigationBarTitleDisplayMode(.inline)
+            //.navigationTitle("WLED Fan & Light")
+            //.navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Picker("Mode", selection: $mode) {
-                        Text("Simple").tag(Mode.simple)
-                        Text("Web").tag(Mode.web)
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 8) {
+                        Button(action: { showingSettings = true }) {
+                            HStack(spacing: 6) {
+                                Image(systemName: "rectangle.connected.to.line.below")
+                                Text("Devices")
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(
+                                Capsule(style: .continuous)
+                                    .fill(.ultraThinMaterial)
+                            )
+                            .overlay(
+                                Capsule(style: .continuous)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            )
+                        }
+                        .buttonStyle(.plain)
+
+                        Picker("Mode", selection: $mode) {
+                            Text("Simple").tag(Mode.simple)
+                            Text("Web").tag(Mode.web)
+                        }
+                        .pickerStyle(.segmented)
+                        .controlSize(.small)
+                        .fixedSize()
                     }
-                    .pickerStyle(.segmented)
-                    .frame(width: 160)
                 }
             }
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .sheet(isPresented: $showingSettings) {
                 SettingsView(manager: manager)
             }
-            .onChange(of: manager.selectedDevice) { _, _ in
-                setupUDP()
+            .onChange(of: manager.selectedDevice) { _ in
+                fetchPresets()
+                fetchActivePreset()
+                fetchBrightness()
             }
-            .onAppear {
-                setupUDP()
-            }
+            .onAppear { startBrightnessPolling() }
+            .onDisappear { stopBrightnessPolling() }
         }
     }
 
@@ -173,7 +201,6 @@ struct ContentView: View {
     // MARK: - Fan via HTTP JSON
     private func sendFanPWM() {
         guard let device = manager.selectedDevice else { return }
-        guard isFanOn else { return }
         guard let url = URL(string: "http://\(device.ip)/json") else { return }
 
         var request = URLRequest(url: url)
@@ -194,43 +221,115 @@ struct ContentView: View {
         URLSession.shared.dataTask(with: request) { _, _, _ in }.resume()
     }
 
-    // MARK: - Light via UDP Realtime
-    private func setupUDP() {
-        connection?.cancel()
-        connection = nil
+    // MARK: - Light via HTTP JSON (persistent)
+    private func sendLightState() {
+        guard let device = manager.selectedDevice else { return }
+        guard let url = URL(string: "http://\(device.ip)/json/state") else { return }
 
-        guard let device = manager.selectedDevice, let port = Optional(wledUDPPort) else { return }
-        let host = NWEndpoint.Host(device.ip)
-        let params = NWParameters.udp
-        let conn = NWConnection(host: host, port: port, using: params)
-        connection = conn
-        conn.stateUpdateHandler = { _ in }
-        conn.start(queue: .main)
+        let bri = max(0, min(255, Int((brightness / 100.0) * 255)))
+
+        var body: [String: Any] = [
+            "on": isLightOn,
+            "bri": bri
+        ]
+
+        // If turned off, optionally set brightness to 0 to ensure off
+        if !isLightOn { body["bri"] = 0 }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        } catch { return }
+
+        URLSession.shared.dataTask(with: request) { _, _, _ in }.resume()
     }
 
-    private func sendLightRealtime() {
-        guard let conn = connection, let _ = manager.selectedDevice else { return }
-        guard isLightOn else { return }
-
-        // Convert Color -> RGB 0...255
-        let ui = UIColor(lightColor)
-        var r: CGFloat = 1, g: CGFloat = 1, b: CGFloat = 0, a: CGFloat = 1
-        ui.getRed(&r, green: &g, blue: &b, alpha: &a)
-        let R = UInt8(max(0, min(255, Int(r * 255))))
-        let G = UInt8(max(0, min(255, Int(g * 255))))
-        let B = UInt8(max(0, min(255, Int(b * 255))))
-
-        let bri = UInt8(max(0, min(255, Int((brightness / 100.0) * 255))))
-
-        // WLED UDP Realtime: We will send RGB at brightness by scaling; simplest: scale RGB by bri
-        func scaled(_ c: UInt8) -> UInt8 {
-            let v = Int(c) * Int(bri) / 255
-            return UInt8(v)
+    private func scheduleDebouncedLightSend() {
+        lightDebounceWorkItem?.cancel()
+        let work = DispatchWorkItem { [isLightOn, brightness] in
+            sendLightState()
         }
-        let payload: [UInt8] = [scaled(R), scaled(G), scaled(B)]
+        lightDebounceWorkItem = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: work)
+    }
 
-        let data = Data(payload)
-        conn.send(content: data, completion: .contentProcessed { _ in })
+    // MARK: - Brightness Polling
+    private func startBrightnessPolling() {
+        pollTimer?.invalidate()
+        pollTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            guard !isEditingBrightness else { return }
+            fetchBrightness()
+        }
+    }
+
+    private func stopBrightnessPolling() {
+        pollTimer?.invalidate()
+        pollTimer = nil
+    }
+
+    private func fetchBrightness() {
+        guard let device = manager.selectedDevice, let url = URL(string: "http://\(device.ip)/json/state") else { return }
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let bri = json["bri"] as? Int else { return }
+            let sliderValue = max(0, min(100, Int((Double(bri) / 255.0) * 100.0)))
+            DispatchQueue.main.async {
+                self.brightness = Double(sliderValue)
+                self.isLightOn = (bri > 0) // keep toggle roughly in sync
+            }
+        }.resume()
+    }
+
+    struct WLEDPre: Decodable {
+        let _id: Int
+        let name: String
+    }
+
+    private func fetchPresets() {
+        guard let device = manager.selectedDevice, let url = URL(string: "http://\(device.ip)/presets.json") else { return }
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else { return }
+            // presets.json is typically a dictionary of id->object. We'll try to decode into a map then map to array.
+            if let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                var items: [WLEDPre] = []
+                for (key, value) in dict {
+                    if let id = Int(key), let obj = value as? [String: Any], let name = obj["n"] as? String {
+                        items.append(WLEDPre(_id: id, name: name))
+                    }
+                }
+                let sorted = items.sorted { $0._id < $1._id }
+                DispatchQueue.main.async { self.presets = sorted }
+            }
+        }.resume()
+    }
+    
+    private func fetchActivePreset() {
+        guard let device = manager.selectedDevice, let url = URL(string: "http://\(device.ip)/json/state") else { return }
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else { return }
+            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                let ps = json["ps"] as? Int
+                DispatchQueue.main.async { self.activePresetID = ps }
+            }
+        }.resume()
+    }
+
+    private func applyPreset(_ id: Int) {
+        self.activePresetID = id
+        guard let device = manager.selectedDevice, let url = URL(string: "http://\(device.ip)/json/state") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body: [String: Any] = ["ps": id]
+        do { request.httpBody = try JSONSerialization.data(withJSONObject: body) } catch { return }
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            // Re-fetch to confirm active preset
+            fetchActivePreset()
+        }.resume()
     }
 }
 
