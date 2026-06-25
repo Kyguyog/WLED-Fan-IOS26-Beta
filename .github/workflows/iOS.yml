@@ -1,0 +1,50 @@
+name: Build Unsigned WLED Fan App
+
+on:
+  workflow_dispatch: 
+
+permissions:
+  contents: write 
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Unsigned Archive
+        run: |
+          xcodebuild archive \
+            -project "WLED Fan.xcodeproj" \
+            -scheme "WLED Fan" \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath $PWD/build/WLED.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Package into IPA
+        run: |
+          mkdir -p Payload
+          mv build/WLED.xcarchive/Products/Applications/*.app Payload/
+          zip -r WLED-Fan.ipa Payload
+
+      - name: Delete old "Beta" release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Delete the release
+          gh release delete "Beta" -y --cleanup-tag || echo "No existing release to delete"
+          # Delete the tag locally so we can recreate it
+          git push --delete origin "Beta" || echo "No existing tag to delete"
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "Beta"
+          name: "Latest Beta"
+          files: WLED-Fan.ipa
+          prerelease: true
