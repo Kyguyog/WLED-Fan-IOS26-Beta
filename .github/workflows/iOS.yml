@@ -1,0 +1,48 @@
+name: Build Unsigned WLED Fan App
+
+on:
+  workflow_dispatch: # Lets you manually trigger the build from GitHub
+
+# Grant the action permission to write to repository releases
+permissions:
+  contents: write 
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Unsigned Archive
+        run: |
+          xcodebuild archive \
+            -project "WLED Fan.xcodeproj" \
+            -scheme "WLED Fan" \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath $PWD/build/WLED.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Package into IPA
+        run: |
+          mkdir -p Payload
+          mv build/WLED.xcarchive/Products/Applications/*.app Payload/
+          zip -r WLED-Fan.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WLED-Fan-Unsigned-IPA
+          path: WLED-Fan.ipa
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "Beta"
+          name: "Latest Beta"
+          files: WLED-Fan.ipa
+          prerelease: true # Marks it visually as a pre-release on GitHub
